@@ -10,6 +10,7 @@ empty OnPerformSync implementation, and leave those details up to you.
 
 This library provides a simple 2-way sync implementation to plug into your Android Sync framework integration.
 
+[Javadoc][https://sschendel.github.io/SyncManagerAndroid/doc/index.html]
 
 [android-sync]: http://developer.android.com/training/sync-adapters/index.html
 [android-atsa]: http://developer.android.com/reference/android/content/AbstractThreadedSyncAdapter.html
