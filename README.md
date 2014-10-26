@@ -10,12 +10,6 @@ empty OnPerformSync implementation, and leave those details up to you.
 
 This library provides a simple 2-way sync implementation to plug into your Android Sync framework integration.
 
-Sync
-===========================================
-``` python
-def python(some):
-        pass
-```
 
 Using SyncManager
 ===========================================
