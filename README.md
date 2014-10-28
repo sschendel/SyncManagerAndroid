@@ -12,6 +12,9 @@ This library provides a simple 2-way sync implementation to plug into your Andro
 
 [Javadoc][javadoc]
 
+See full source demo Google Tasks list Android app: [SyncManagerAndroid-DemoGoogleTasks][demo]
+
 [android-sync]: http://developer.android.com/training/sync-adapters/index.html
 [android-atsa]: http://developer.android.com/reference/android/content/AbstractThreadedSyncAdapter.html
 [javadoc]: http://sschendel.github.io/SyncManagerAndroid/doc/index.html
+[demo]: https://github.com/sschendel/SyncManagerAndroid-DemoGoogleTasks
