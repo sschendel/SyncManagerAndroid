@@ -9,18 +9,19 @@ import android.util.Log;
  * 
  * @author SAS
  *
- * @param <T> - ISyncable data type
+ * @param <L> - Local ISyncable data type
+ * @param <R> - Remote ISyncable data type
  */
-public class SyncManager<T extends ISyncable> {
+public class SyncManager<L extends ISyncable, R extends ISyncable> {
 	private static final String TAG = "SyncManager";
 
-	private IDatastore<T> mLocalStore;
-	private IDatastore<T> mRemoteStore;
+	private IDatastore<L> mLocalStore;
+	private IDatastore<R> mRemoteStore;
 
 	
-	private T findRemoteItemInLocalData(T remoteItem, List<T> localData) {
-		T  result = null;
-		for(T localItem : localData) {
+	private L findRemoteItemInLocalData(R remoteItem, List<L> localData) {
+		L  result = null;
+		for(L localItem : localData) {
 			String localItemRemoteId = localItem.getRemoteId();
 			if (localItemRemoteId != null) {
 				if(localItemRemoteId.equals(remoteItem.getRemoteId())) {
@@ -32,9 +33,9 @@ public class SyncManager<T extends ISyncable> {
 		return result;
 	}
 
-	private T findLocalItemInRemoteData(T localItem, List<T> remoteData) {
-		T result = null;
-		for(T remoteItem : remoteData) {
+	private R findLocalItemInRemoteData(L localItem, List<R> remoteData) {
+		R result = null;
+		for(R remoteItem : remoteData) {
 			//Log.d(TAG, serverItem.toString()+" =? "+localItem.toString());
 			String remoteItemRemoteId = remoteItem.getRemoteId();
 			if (remoteItemRemoteId != null) {
@@ -48,7 +49,7 @@ public class SyncManager<T extends ISyncable> {
 	}	
 	
 	
-	private void syncItem(T localItem, T remoteItem) {
+	private void syncItem(L localItem, R remoteItem) {
 		Log.d(TAG, "syncItem...");
 		Log.d(TAG, "local seq:"+localItem.getLastUpdatedSequence()+" remote seq:"+remoteItem.getLastUpdatedSequence());
 		if (remoteItem.getLastUpdatedSequence() > localItem.getLastUpdatedSequence()) {
@@ -69,12 +70,12 @@ public class SyncManager<T extends ISyncable> {
 	
 	private void pull() {
 		Log.d(TAG, "pull...");
-		List<T> localData = mLocalStore.get();
-		List<T> remoteData = mRemoteStore.get();
+		List<L> localData = mLocalStore.get();
+		List<R> remoteData = mRemoteStore.get();
 		
-		for(T remoteItem : remoteData) {
+		for(R remoteItem : remoteData) {
 			Log.d(TAG, "check remote item: "+remoteItem.toString());
-			T localItem = findRemoteItemInLocalData(remoteItem, localData);
+			L localItem = findRemoteItemInLocalData(remoteItem, localData);
 			if (localItem == null) {
 				// new item from server
 				localItem = mLocalStore.create();
@@ -89,13 +90,13 @@ public class SyncManager<T extends ISyncable> {
 
 	private void push() {
 		Log.d(TAG, "push...");
-		List<T> localData = mLocalStore.get();
-		List<T> remoteData = mRemoteStore.get();
+		List<L> localData = mLocalStore.get();
+		List<R> remoteData = mRemoteStore.get();
 
-		for(T localItem : localData) {
+		for(L localItem : localData) {
 			Log.d(TAG, "check local item: "+localItem.toString());
 			
-			T remoteItem = findLocalItemInRemoteData(localItem, remoteData);
+			R remoteItem = findLocalItemInRemoteData(localItem, remoteData);
 			if (remoteItem == null) {
 				remoteItem = mRemoteStore.create();
 				remoteItem.mapFromLocal(localItem);
@@ -125,7 +126,7 @@ public class SyncManager<T extends ISyncable> {
 	 * @param localStore - Interface to local datastore
 	 * @param remoteStore - Interface to remote datastore
 	 */
-	public SyncManager(IDatastore<T> localStore, IDatastore<T> remoteStore) {
+	public SyncManager(IDatastore<L> localStore, IDatastore<R> remoteStore) {
 		mLocalStore = localStore;
 		mRemoteStore = remoteStore;
 	}
