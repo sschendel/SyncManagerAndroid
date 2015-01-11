@@ -1,7 +1,7 @@
 package com.rogansoft.sync;
 
 /***
- * ISyncable must be implemented by class that represents data to be synced.
+ * Syncable must be implemented by class that represents data to be synced.
  * <p>
  * Includes:
  * <ul>
@@ -13,7 +13,7 @@ package com.rogansoft.sync;
  * @author SAS
  *
  */
-public interface ISyncable {
+public interface Syncable {
 	/***
 	 * Getter for remote id that uniquely identifies syncable data item.  Used by syncmanager
 	 * to match local/remote syncable items.
@@ -45,12 +45,12 @@ public interface ISyncable {
 	 * Map fields from remote syncable data instance.
 	 * @param remote Remote syncable item to map from
 	 */
-	void mapFromRemote(ISyncable remote);
+	void mapFromRemote(Syncable remote);
 
 	/***
 	 * Map fields from local syncable data instance.
 	 * @param local Local syncable item to map from
 	 */
-	void mapFromLocal(ISyncable local);
+	void mapFromLocal(Syncable local);
 	
 }

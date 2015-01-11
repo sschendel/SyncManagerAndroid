@@ -3,7 +3,7 @@ package com.rogansoft.sync;
 import java.util.List;
 
 /***
- * Datastore interface used by SyncManager. An IDatastore implementation should be created for
+ * Datastore interface used by SyncManager. A Datastore implementation should be created for
  * both the remote and local datastore.
  * 
  *  Local datastore - Should provide CRUD implementation to local data (e.g. SQLite)
@@ -11,9 +11,9 @@ import java.util.List;
  * 
  * @author SAS
  *
- * @param <T> - ISyncable data type implementation
+ * @param <T> - Syncable data type implementation
  */
-public interface IDatastore<T extends ISyncable> {
+public interface Datastore<T extends Syncable> {
 	/***
 	 * Return full list of syncable data.
 	 * 

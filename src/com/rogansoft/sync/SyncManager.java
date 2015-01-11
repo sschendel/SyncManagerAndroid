@@ -9,14 +9,14 @@ import android.util.Log;
  * 
  * @author SAS
  *
- * @param <L> - Local ISyncable data type
- * @param <R> - Remote ISyncable data type
+ * @param <L> - Local Syncable data type
+ * @param <R> - Remote Syncable data type
  */
-public class SyncManager<L extends ISyncable, R extends ISyncable> {
+public class SyncManager<L extends Syncable, R extends Syncable> {
 	private static final String TAG = "SyncManager";
 
-	private IDatastore<L> mLocalStore;
-	private IDatastore<R> mRemoteStore;
+	private Datastore<L> mLocalStore;
+	private Datastore<R> mRemoteStore;
 
 	
 	private L findRemoteItemInLocalData(R remoteItem, List<L> localData) {
@@ -126,7 +126,7 @@ public class SyncManager<L extends ISyncable, R extends ISyncable> {
 	 * @param localStore - Interface to local datastore
 	 * @param remoteStore - Interface to remote datastore
 	 */
-	public SyncManager(IDatastore<L> localStore, IDatastore<R> remoteStore) {
+	public SyncManager(Datastore<L> localStore, Datastore<R> remoteStore) {
 		mLocalStore = localStore;
 		mRemoteStore = remoteStore;
 	}
